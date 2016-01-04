@@ -113,23 +113,24 @@ namespace skipper
             if (print_help)
                 m_out << *this;
 
-            m_out << std::endl << "> ";
+            // m_out << std::endl << "> ";
 
             std::string in_key;
             while (m_in >> in_key)
             {
+                // if (m_out == std::cout)
+                    // m_out << std::endl << "> ";
+
                 if (in_key == "q")
                     return 0;
 
                 if (m_commands.count(in_key))
                 {
-                    m_out << "> ";
+                    // m_out << "> ";
                     std::get<0>(m_commands[in_key])();
                 }
                 else
                     m_out << "Invalid command, press 'h' for help";
-
-                m_out << std::endl << "> ";
             }
 
             return 0;
@@ -148,7 +149,7 @@ namespace skipper
             for(auto i = p.m_commands.begin(); i != p.m_commands.end(); i++)
                 os << i->first << " " << std::get<1>(i->second) << std::endl;
 
-            os << p.m_exit_key << " exit the program" << std::endl;
+            os << p.m_exit_key << " exit the program" << std::endl << std::endl;
 
             return os;
         }

@@ -8,10 +8,17 @@
 int main()
 {
     // dummy functions called by the program
-    auto function_str = [&](std::string s){std::cout << "called with: " << s;};
-    auto function_int = [&](int i){std::cout << "called with: " << i;};
-    auto function_float = [&](float f){std::cout << "called with: " << f;};
-    auto print_function = [&](){std::cout << "prints some useful value";};
+    auto function_str =
+        [&](std::string s){std::cout << "called with: " << s << std::endl;};
+
+    auto function_int =
+        [&](int i){std::cout << "called with: " << i<< std::endl;};
+
+    auto function_float =
+        [&](float f){std::cout << "called with: " << f<< std::endl;};
+
+    auto print_function =
+        [&](){std::cout << "prints some useful value" << std::endl;};
 
     // create a program with some help text
     skipper::program p("This is a program for demonstration purposes");
