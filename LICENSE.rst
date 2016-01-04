@@ -1,4 +1,4 @@
-Copyright (c) 2015, Steinwurf ApS
+Copyright (c) 2016, Steinwurf ApS
 
 All rights reserved.
 
