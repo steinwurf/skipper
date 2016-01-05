@@ -4,4 +4,4 @@ bld.program(
     features='cxx test',
     source=['skipper_tests.cpp'] + bld.path.ant_glob('src/*.cpp'),
     target='skipper_tests',
-    use=['skipper', 'gtest'])
+    use=['skipper', 'gtest','stub_includes'])

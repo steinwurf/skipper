@@ -11,6 +11,7 @@
 #include <tuple>
 #include <vector>
 #include <typeinfo>
+#include <algorithm>
 
 namespace skipper
 {
@@ -75,14 +76,14 @@ namespace skipper
         template<typename Type, typename Predicate>
         void add_command(const std::string key,
                          std::string description,
-                         const std::function<void(const Type)> call,
-                         const Predicate &validate,
+                         const std::function<void(const Type)>& call,
+                         const Predicate& validate,
                          std::function<const Type(std::istream&)> convert =
                             default_convert<Type>)
         {
             assert(!m_commands.count(key));
 
-            auto set_command = [&]()
+            auto set_command = [=]()
             {
                 Type value;
                 try
@@ -91,14 +92,14 @@ namespace skipper
                 }
                 catch (std::string str)
                 {
-                    m_out << str;
+                    m_out << str << std::endl;;
                     return;
                 }
 
                 if (validate(value))
                     call(value);
                 else
-                    m_out << "Invalid input, press 'h' for help";
+                    m_out << "Invalid input, press 'h' for help" << std::endl;
             };
 
             std::ostringstream help;
@@ -113,24 +114,18 @@ namespace skipper
             if (print_help)
                 m_out << *this;
 
-            // m_out << std::endl << "> ";
-
             std::string in_key;
             while (m_in >> in_key)
             {
-                // if (m_out == std::cout)
-                    // m_out << std::endl << "> ";
-
                 if (in_key == "q")
                     return 0;
 
                 if (m_commands.count(in_key))
                 {
-                    // m_out << "> ";
                     std::get<0>(m_commands[in_key])();
                 }
                 else
-                    m_out << "Invalid command, press 'h' for help";
+                    m_out << "Invalid command, press 'h' for help" << std::endl;
             }
 
             return 0;
@@ -238,19 +233,15 @@ namespace skipper
     struct set
     {
         /// constructor
-        set(std::initializer_list<Type> values)
+        set(const std::vector<Type> values)
         : m_values(values)
         {}
 
         /// @copydoc any::operator()
-        bool operator()(const Type value) const
+        bool operator()(Type value) const
         {
-            for (Type val : m_values)
-            {
-                if (value == val)
-                    return true;
-            }
-            return false;
+            return (std::find(m_values.begin(), m_values.end(), value) !=
+                    m_values.end());
         }
 
         /// @copydoc any::operator<<
