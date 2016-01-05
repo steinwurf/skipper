@@ -28,16 +28,13 @@ To create a meaningfull program you need to add some commands to it.
     #include <skipper/program.hpp>
 
     skipper::program p("Some text describing what the program does");
-    p.add_command<std::string>("a", "Some helpful text", some_function,
-                               skipper::any<std::string>());
+    p.add_command<std::string>("a", "Some helpful text", some_function, skipper::any<std::string>());
 
     return p.run();
 
 here some_function takes a std::string as input. In the resulting executable.
 
-* pressing 'a' and 'enter' will promt for more input in this case a string and
-some_function will be called with it, provided the user managed to type a valid
-string.
+* pressing 'a' and 'enter' will promt for more input in this case a string and some_function will be called with it, provided the user managed to type a valid string.
 
 * pressing 'h' and 'enter' will display some helpful text, if you provided it.
 
