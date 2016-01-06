@@ -5,15 +5,15 @@
 
 #pragma once
 
+#include <algorithm>
 #include <cassert>
 #include <iostream>
-#include <sstream>
 #include <functional>
 #include <map>
+#include <sstream>
 #include <tuple>
-#include <vector>
 #include <typeinfo>
-#include <algorithm>
+#include <vector>
 
 namespace skipper
 {
@@ -94,7 +94,7 @@ namespace skipper
                 }
                 catch (std::string str)
                 {
-                    m_out << str << std::endl;;
+                    m_out << str << std::endl;
                     return;
                 }
 
@@ -123,13 +123,10 @@ namespace skipper
                     return 0;
 
                 if (m_commands.count(in_key))
-                {
                     std::get<0>(m_commands[in_key])();
-                }
                 else
                     m_out << "Invalid command, press 'h' for help" << std::endl;
             }
-
             return 0;
         }
 
@@ -141,8 +138,9 @@ namespace skipper
         /// @return friendly help stream
         friend std::ostream& operator<<(std::ostream& os, const program &p)
         {
-            os << std::endl << p.m_description << std::endl << std::endl;
-            os << "The following commands are accepted:" << std::endl;
+            os << std::endl << p.m_description << std::endl << std::endl
+               << "The following commands are accepted:" << std::endl;
+
             for(auto i = p.m_commands.begin(); i != p.m_commands.end(); i++)
                 os << i->first << " " << std::get<1>(i->second) << std::endl;
 
@@ -225,7 +223,6 @@ namespace skipper
         const Type m_upper;
     };
 
-
     /// validates that the provided value is a set
     template<typename Type>
     struct set
@@ -259,5 +256,4 @@ namespace skipper
         /// the values in the set
         const std::vector<Type> m_values;
     };
-
 }
