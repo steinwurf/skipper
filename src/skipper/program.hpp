@@ -3,6 +3,8 @@
 //
 // Distributed under the "BSD License". See the accompanying LICENSE.rst file.
 
+#pragma once
+
 #include <cassert>
 #include <iostream>
 #include <sstream>
@@ -171,10 +173,6 @@ namespace skipper
     template<typename Type>
     struct any
     {
-        /// constructor
-        any()
-        {}
-
         /// check if a value is ok to use
         /// @param value the value to check
         /// @return wether the provided value checked
@@ -232,8 +230,7 @@ namespace skipper
     template<typename Type>
     struct set
     {
-        /// constructor
-        set(const std::vector<Type> values)
+        set(const std::initializer_list<Type> values)
         : m_values(values)
         {}
 
