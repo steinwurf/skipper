@@ -43,10 +43,10 @@ namespace skipper
     public:
 
         /// the command type
-        using command_type = typename std::function<void(void)>;
+        using command_type = std::function<void(void)>;
 
         /// storage for a command
-        using command_storage = typename std::tuple<command_type, std::string>;
+        using command_storage = std::tuple<command_type, std::string>;
 
         /// @param description
         /// @param in the input stream to use

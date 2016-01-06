@@ -21,7 +21,7 @@ TEST(TestProgram, any)
 
 TEST(TestProgram, range)
 {
-    skipper::range<float> r(-3,5);
+    skipper::range<float> r(-3.F, 5.0F);
     EXPECT_TRUE(r(-3));
     EXPECT_TRUE(r(0));
     EXPECT_TRUE(r(5));
@@ -93,9 +93,9 @@ TEST(TestProgram, float_range_command)
 
     stub::call<void(float)> m_function;
     std::function<void(float)> function = [&](float value){m_function(value);};
-    p.add_command<int>("a", "help", function, skipper::range<float>(-4,7.2));
+    p.add_command<int>("a", "help", function, skipper::range<float>(-4.0F, 7.2F));
 
-    test_in.str("a\n 42\n a\n -1\n a\n 0\n a\n 7 a\n 11\n");
+    test_in.str("a\n 42\n a\n -1\n a\n 0\n a\n 7\n a\n 11\n");
     p.run(false);
     EXPECT_EQ(3U,m_function.calls());
     EXPECT_TRUE(!!m_function.expect_calls().with(-1).with(0).with(7));
