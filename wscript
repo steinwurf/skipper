@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 APPNAME = 'skipper'
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 
 import waflib.extras.wurf_options
 
