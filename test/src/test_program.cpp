@@ -63,7 +63,7 @@ TEST(TestProgram, void_command)
     auto print_function = [&](){m_print_function();};
 
     p.add_command("p", "print something", print_function);
-    test_in.str("p\n p\n p\n");
+    test_in.str("p\n p\n p\n q\n");
     p.run(false);
     EXPECT_EQ(3U,m_print_function.calls());
     EXPECT_EQ("",test_out.str());
@@ -111,7 +111,7 @@ TEST(TestProgram, trigger_errors)
     std::function<void(int)> function = [&](int value){m_function(value);};
     p.add_command<int>("a", "help", function, skipper::range<int>(0, 10));
 
-    test_in.str("wrong key\n a\n wrong input\n");
+    test_in.str("wrong key\n a\n wrong input\n q\n");
 
     p.run();
     EXPECT_NE("",test_out.str());
