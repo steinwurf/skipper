@@ -100,3 +100,19 @@ TEST(TestProgram, float_range_command)
     EXPECT_EQ(3U,m_function.calls());
     EXPECT_TRUE(!!m_function.expect_calls().with(-1).with(0).with(7));
 }
+
+TEST(TestProgram, trigger_errors)
+{
+    std::istringstream test_in;
+    std::ostringstream test_out;
+    skipper::program p("dummy help text", test_in, test_out);
+
+    stub::call<void(int)> m_function;
+    std::function<void(int)> function = [&](int value){m_function(value);};
+    p.add_command<int>("a", "help", function, skipper::range<int>(0, 10));
+
+    test_in.str("wrong key\n a\n wrong input\n");
+
+    p.run();
+    EXPECT_NE("",test_out.str());
+}
