@@ -10,50 +10,12 @@
 
 #include <sstream>
 
-
-TEST(TestProgram, any)
-{
-    skipper::any<int> a;
-    EXPECT_TRUE(a(-1));
-    EXPECT_TRUE(a(0));
-    EXPECT_TRUE(a(1));
-}
-
-TEST(TestProgram, range)
-{
-    skipper::range<float> r(-3.F, 5.0F);
-    EXPECT_TRUE(r(-3));
-    EXPECT_TRUE(r(0));
-    EXPECT_TRUE(r(5));
-    EXPECT_FALSE(r(6));
-}
-
-TEST(TestProgram, set)
-{
-    {
-        skipper::set<int> s({1,2,4,16});
-        EXPECT_TRUE(s(1));
-        EXPECT_TRUE(s(2));
-        EXPECT_TRUE(s(4));
-        EXPECT_TRUE(s(16));
-        EXPECT_FALSE(s(0));
-        EXPECT_FALSE(s(3));
-    }
-    {
-        skipper::set<std::string> s({"stein","wurf"});
-        EXPECT_TRUE(s("stein"));
-        EXPECT_TRUE(s("wurf"));
-        EXPECT_FALSE(s("out"));
-        EXPECT_FALSE(s("0"));
-    }
-}
-
-TEST(TestProgram, initialize)
+TEST(program, initialize)
 {
     skipper::program p("dummy help text");
 }
 
-TEST(TestProgram, void_command)
+TEST(program, void_command)
 {
     std::istringstream test_in;
     std::ostringstream test_out;
@@ -69,7 +31,7 @@ TEST(TestProgram, void_command)
     EXPECT_EQ("",test_out.str());
 }
 
-TEST(TestProgram, int_set_command)
+TEST(program, int_set_command)
 {
     std::istringstream test_in;
     std::ostringstream test_out;
@@ -85,7 +47,7 @@ TEST(TestProgram, int_set_command)
     EXPECT_TRUE(!!m_function.expect_calls().with(42).with(0).with(7));
 }
 
-TEST(TestProgram, float_range_command)
+TEST(program, float_range_command)
 {
     std::istringstream test_in;
     std::ostringstream test_out;
@@ -101,7 +63,7 @@ TEST(TestProgram, float_range_command)
     EXPECT_TRUE(!!m_function.expect_calls().with(-1).with(0).with(7));
 }
 
-TEST(TestProgram, trigger_errors)
+TEST(program, trigger_errors)
 {
     std::istringstream test_in;
     std::ostringstream test_out;

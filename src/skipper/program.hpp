@@ -5,15 +5,15 @@
 
 #pragma once
 
-#include <algorithm>
-#include <cassert>
+#include "any.hpp"
+#include "range.hpp"
+#include "set.hpp"
+
 #include <iostream>
 #include <functional>
 #include <map>
 #include <sstream>
 #include <tuple>
-#include <typeinfo>
-#include <vector>
 
 namespace skipper
 {
@@ -165,95 +165,5 @@ namespace skipper
 
         /// the string that terminates the program
         const std::string m_exit_key = "q";
-    };
-
-    /// validates true no matter what value provided
-    template<typename Type>
-    struct any
-    {
-        /// check if a value is ok to use
-        /// @param value the value to check
-        /// @return wether the provided value checked
-        bool operator()(const Type value) const
-        {
-            (void) value;
-            return true;
-        }
-
-        /// print help text by overloading the << operator
-        /// @param os an output stream
-        /// @param s a set
-        /// @return friendly help stream
-        friend std::ostream& operator<<(std::ostream& os, const any &a)
-        {
-            (void) a;
-            return os << "of type " << typeid(Type).name() << " of any value";
-        }
-    };
-
-    /// validates that the provided value is within a defined range
-    template<typename Type>
-    struct range
-    {
-        range(Type lower, Type upper)
-            : m_lower(lower), m_upper(upper)
-        {
-            assert(lower <= upper);
-        }
-
-        /// @copydoc any::operator()
-        bool operator()(const Type value) const
-        {
-            return ((value >= m_lower) && (value <= m_upper));
-        }
-
-        /// @copydoc any::operator<<
-        friend std::ostream& operator<<(std::ostream& os, const range &r)
-        {
-            return os << "of type " << typeid(Type).name() << " in ["
-                      << r.m_lower << "," << r.m_upper << "]";
-        }
-
-    private:
-
-        /// the lower limit in the range
-        const Type m_lower;
-
-        /// the upper limit in the range
-        const Type m_upper;
-    };
-
-    /// validates that the provided value is a set
-    template<typename Type>
-    struct set
-    {
-        set(const std::initializer_list<Type> values)
-        : m_values(values)
-        {}
-
-        /// @copydoc any::operator()
-        bool operator()(Type value) const
-        {
-            return (std::find(m_values.begin(), m_values.end(), value) !=
-                    m_values.end());
-        }
-
-        /// @copydoc any::operator<<
-        friend std::ostream& operator<<(std::ostream& os, const set &s)
-        {
-            os << "of type " << typeid(Type).name() << " in {";
-            for(auto i = s.m_values.begin(); i != s.m_values.end(); i++)
-            {
-                if (i != s.m_values.begin())
-                    os << ",";
-                os << *i;
-            }
-            return os << "}";
-        }
-
-    private:
-
-        /// the values in the set
-        const std::vector<Type> m_values;
     };
 }
