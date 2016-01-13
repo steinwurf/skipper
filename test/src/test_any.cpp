@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(any, basic)
+TEST(test_any, basic)
 {
     skipper::any<int> a;
     EXPECT_TRUE(a(-1));

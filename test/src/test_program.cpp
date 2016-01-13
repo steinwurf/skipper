@@ -10,12 +10,12 @@
 
 #include <sstream>
 
-TEST(program, initialize)
+TEST(test_program, initialize)
 {
     skipper::program p("dummy help text");
 }
 
-TEST(program, void_command)
+TEST(test_program, void_command)
 {
     std::istringstream test_in;
     std::ostringstream test_out;
@@ -31,7 +31,7 @@ TEST(program, void_command)
     EXPECT_EQ("",test_out.str());
 }
 
-TEST(program, int_set_command)
+TEST(test_program, int_set_command)
 {
     std::istringstream test_in;
     std::ostringstream test_out;
@@ -47,7 +47,7 @@ TEST(program, int_set_command)
     EXPECT_TRUE(!!m_function.expect_calls().with(42).with(0).with(7));
 }
 
-TEST(program, float_range_command)
+TEST(test_program, float_range_command)
 {
     std::istringstream test_in;
     std::ostringstream test_out;
@@ -63,7 +63,7 @@ TEST(program, float_range_command)
     EXPECT_TRUE(!!m_function.expect_calls().with(-1).with(0).with(7));
 }
 
-TEST(program, trigger_errors)
+TEST(test_program, trigger_errors)
 {
     std::istringstream test_in;
     std::ostringstream test_out;

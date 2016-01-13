@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(range, basic)
+TEST(test_range, basic)
 {
     skipper::range<float> r(-3.F, 5.0F);
     EXPECT_TRUE(r(-3));

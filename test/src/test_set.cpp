@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(set, basic)
+TEST(test_set, basic)
 {
     {
         skipper::set<int> s({1,2,4,16});
