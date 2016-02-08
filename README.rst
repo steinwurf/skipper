@@ -21,7 +21,7 @@ to use it.
 Adding Commands
 ===============
 
-To create a meaningfull program you need to create the program add some commands to it and run it.
+To create a meaningfull program you need to create the program and add some commands to it and run it.
 
 ::
 
@@ -69,7 +69,7 @@ Range accepts all inputs in a specified range, here [0,10]
 
 ::
 
-    p.add_command<int>("e", "text", int_function, skipper::range<float>(0,10));
+    p.add_command<float>("e", "text", float_function, skipper::range<float>(0,10));
 
 Range accepts all inputs in a specified set, here {-3,1,42}
 
