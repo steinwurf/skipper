@@ -43,7 +43,7 @@ namespace skipper
     public:
 
         /// the command type
-        using command_type = std::function<void(void)>;
+        using command_type = std::function<void()>;
 
         /// storage for a command
         using command_storage = std::tuple<command_type, std::string>;
@@ -106,7 +106,7 @@ namespace skipper
 
             std::ostringstream help;
             help << description << ", " << validate;
-            m_commands[key] = std::make_tuple(set_command, help.str());
+            add_command(key, description, set_command);
         }
 
         /// run the program
@@ -117,6 +117,8 @@ namespace skipper
                 m_out << *this;
 
             std::string in_key;
+
+            std::cout << "> ";
             while (m_in >> in_key)
             {
                 if (in_key == "q")
@@ -126,6 +128,8 @@ namespace skipper
                     std::get<0>(m_commands[in_key])();
                 else
                     m_out << "Invalid command, press 'h' for help" << std::endl;
+
+                std::cout << "> ";
             }
             return 0;
         }
