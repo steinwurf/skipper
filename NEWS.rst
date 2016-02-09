@@ -6,6 +6,10 @@ every change, see the Git log.
 
 Latest
 ------
+* tbd
+
+1.2.0
+-----
 * Minor: Added `>` to indicate "ready for command input".
 
 1.0.1
