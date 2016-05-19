@@ -27,8 +27,8 @@ TEST(test_program, void_command)
     p.add_command("p", "print something", print_function);
     test_in.str("p\n p\n p\n q\n");
     p.run(false);
-    EXPECT_EQ(3U,m_print_function.calls());
-    EXPECT_EQ("",test_out.str());
+    EXPECT_EQ(3U, m_print_function.calls());
+    EXPECT_EQ("", test_out.str());
 }
 
 TEST(test_program, int_set_command)
@@ -43,8 +43,8 @@ TEST(test_program, int_set_command)
 
     test_in.str("a\n 42\n a\n -10\n a\n 0\n a\n 7 a\n 11\n");
     p.run(false);
-    EXPECT_EQ(3U,m_function.calls());
-    EXPECT_TRUE(!!m_function.expect_calls().with(42).with(0).with(7));
+    EXPECT_EQ(3U, m_function.calls());
+    EXPECT_TRUE(m_function.expect_calls().with(42).with(0).with(7).to_bool());
 }
 
 TEST(test_program, float_range_command)
@@ -55,12 +55,13 @@ TEST(test_program, float_range_command)
 
     stub::call<void(float)> m_function;
     std::function<void(float)> function = [&](float value){m_function(value);};
-    p.add_command<int>("a", "help", function, skipper::range<float>(-4.0F, 7.2F));
+    p.add_command<float>("a", "help", function,
+        skipper::range<float>(-4.0F, 7.2F));
 
     test_in.str("a\n 42\n a\n -1\n a\n 0\n a\n 7\n a\n 11\n");
     p.run(false);
-    EXPECT_EQ(3U,m_function.calls());
-    EXPECT_TRUE(!!m_function.expect_calls().with(-1).with(0).with(7));
+    EXPECT_EQ(3U, m_function.calls());
+    EXPECT_TRUE(m_function.expect_calls().with(-1).with(0).with(7).to_bool());
 }
 
 TEST(test_program, trigger_errors)
@@ -76,5 +77,5 @@ TEST(test_program, trigger_errors)
     test_in.str("wrong key\n a\n wrong input\n q\n");
 
     p.run();
-    EXPECT_NE("",test_out.str());
+    EXPECT_NE("", test_out.str());
 }
