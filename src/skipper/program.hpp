@@ -75,7 +75,7 @@ namespace skipper
         /// @copydoc add_command
         /// @param validate Predicate that validates the input for the command
         /// @param convert function that converts the input string
-        template<typename Type, typename Predicate = skipper::any<Type>>
+        template<typename Type, typename Predicate = any<Type>>
         void add_command(const std::string key,
                          std::string description,
                          const std::function<void(const Type)>& call,
