@@ -6,7 +6,7 @@ every change, see the Git log.
 
 Latest
 ------
-* tbd
+* Minor: Validator defaults to Any input, if no validator is provided.
 
 1.2.0
 -----

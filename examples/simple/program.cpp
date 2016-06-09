@@ -44,8 +44,7 @@ int main()
     skipper::program p("This is a program for demonstration purposes");
 
     // add a command that takes any string as input
-    p.add_command<std::string>("a", "some help text for a", function_str,
-                               skipper::any<std::string>());
+    p.add_command<std::string>("a", "some help text for a", function_str);
 
     // add a command that takes a float in a certain range as intput
     p.add_command<float>("b", "some help text for b", function_float,
