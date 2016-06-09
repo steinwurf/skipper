@@ -111,14 +111,16 @@ namespace skipper
 
         /// run the program
         /// @param print_help whether to print the help text on program run
-        int run(bool print_help = true)
+        int run(bool print_help = true, bool print_ready_indicator = true)
         {
             if (print_help)
                 m_out << *this;
 
             std::string in_key;
 
-            std::cout << "> ";
+            if (print_ready_indicator)
+                std::cout << "> ";
+
             while (m_in >> in_key)
             {
                 if (in_key == "q")
@@ -129,7 +131,8 @@ namespace skipper
                 else
                     m_out << "Invalid command, press 'h' for help" << std::endl;
 
-                std::cout << "> ";
+                if (print_ready_indicator)
+                    std::cout << "> ";
             }
             return 0;
         }
