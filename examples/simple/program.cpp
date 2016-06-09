@@ -1,4 +1,4 @@
-// Copyright Steinwurf ApS 2016.
+ // Copyright Steinwurf ApS 2016.
 // All Rights Reserved
 //
 // Distributed under the "BSD License". See the accompanying LICENSE.rst file.
@@ -13,10 +13,10 @@ int main()
         [](std::string s){std::cout << "called with: " << s << std::endl;};
 
     auto function_int =
-        [](int i){std::cout << "called with: " << i<< std::endl;};
+        [](int i){std::cout << "called with: " << i << std::endl;};
 
     auto function_float =
-        [](float f){std::cout << "called with: " << f<< std::endl;};
+        [](float f){std::cout << "called with: " << f << std::endl;};
 
     auto print_function =
         [](){std::cout << "prints some useful value" << std::endl;};
@@ -26,7 +26,8 @@ int main()
     auto function_str_int_tuple = [](tuple_type t)
     {
         (void)t;
-        std::cout << "called with: " << std::get<0>(t) << ", " << std::get<1>(t) << std::endl;
+        std::cout << "called with: "
+                  << std::get<0>(t) << ", " << std::get<1>(t) << std::endl;
     };
 
     auto tuple_convert = [](std::istream& in)
@@ -49,11 +50,11 @@ int main()
 
     // add a command that takes a float in a certain range as intput
     p.add_command<float>("b", "some help text for b", function_float,
-                         skipper::range<float>(0,5));
+                         skipper::range<float>(0, 5));
 
     // add a command that takes an integer in a certain set as intput
     p.add_command<int>("c", "some help text for c", function_int,
-                       skipper::set<int>({2,4,8,16}));
+                       skipper::set<int>({2, 4, 8, 16}));
 
     // add a command that takes any string followed by any int as input
     p.add_command<tuple_type>("d", "some help text for d",
