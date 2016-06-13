@@ -110,16 +110,14 @@ namespace skipper
         }
 
         /// run the program
-        /// @param print_help whether to print the help text on program run
-        int run(bool print_help = true, bool print_ready_indicator = true)
+        int run()
         {
-            if (print_help)
+            if (m_print_help)
                 m_out << *this;
 
             std::string in_key;
 
-            if (print_ready_indicator)
-                std::cout << "> ";
+            std::cout << m_ready_indicator;
 
             while (m_in >> in_key)
             {
@@ -131,10 +129,23 @@ namespace skipper
                 else
                     m_out << "Invalid command, press 'h' for help" << std::endl;
 
-                if (print_ready_indicator)
-                    std::cout << "> ";
+                std::cout << m_ready_indicator;
             }
             return 0;
+        }
+
+        /// Set wether to print on program run
+        /// @param print_help whether to print the help text on program run
+        void set_print_help_on_run(bool print_help)
+        {
+            m_print_help = print_help;
+        }
+
+        /// Set the ready indicator
+        /// @param ready_indicator the ready indicator
+        void set_ready_indicator(const std::string& ready_indicator)
+        {
+            m_ready_indicator = ready_indicator;
         }
 
     private:
@@ -172,5 +183,9 @@ namespace skipper
 
         /// the string that terminates the program
         const std::string m_exit_key = "q";
+
+        bool m_print_help = true;
+
+        std::string m_ready_indicator = "> ";
     };
 }

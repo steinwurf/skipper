@@ -6,7 +6,8 @@ every change, see the Git log.
 
 Latest
 ------
-* tbd
+* Major: Changed run(bool print_help) -> run()
+* Minor: Added set_print_help_on_run() and set_ready_indicator()
 
 1.2.0
 -----
