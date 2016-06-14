@@ -83,7 +83,7 @@ namespace skipper
                          std::function<const Type(std::istream&)> convert =
                             default_convert<Type>)
         {
-            assert(!m_commands.count(key));
+            assert(!m_commands.count(key) && "Duplicated command");
 
             auto set_command = [=]()
             {
