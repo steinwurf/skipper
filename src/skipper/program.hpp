@@ -9,6 +9,8 @@
 #include "range.hpp"
 #include "set.hpp"
 
+#include <kw/arg.hpp>
+
 #include <iostream>
 #include <functional>
 #include <map>
@@ -35,6 +37,12 @@ namespace skipper
         return value;
     }
 
+    /// Definition of optional arguments for the program (suing kw)
+    kw::arg<std::string> ready_indicator;
+    kw::arg<std::istream&> in ;
+    kw::arg<std::ostream&> out;
+    kw::arg<bool> print_help_on_run;
+
     /// defines a number of commands that can be executed by the user making
     /// various function calls optinally providing an argument
     class program
@@ -49,13 +57,20 @@ namespace skipper
         using command_storage = std::tuple<command_type, std::string>;
 
         /// @param description
-        /// @param in the input stream to use
-        /// @param out the output stream to use
-        program(std::string description,
-                std::istream& in = std::cin,
-                std::ostream& out = std::cout)
-            : m_description(description), m_in(in), m_out(out)
+        /// @param args optional arguments
+        ///     in the input stream to use
+        ///     out the output stream to use
+        ///     print_help_on_run wether to print help on run
+        ///     ready_indicator the ready_indicator.
+        template<typename... Args>
+        program(std::string description, const Args&... args) :
+            m_description(description)
         {
+            kw::get(ready_indicator, m_ready_indicator, args...);
+            kw::get(in, m_in, args...);
+            kw::get(out, m_out, args...);
+            kw::get(print_help_on_run, m_print_help_on_run, args...);
+
             add_command("h", "print this help", [&](){m_out << *this;});
         }
 
@@ -112,12 +127,12 @@ namespace skipper
         /// run the program
         int run()
         {
-            if (m_print_help)
+            if (m_print_help_on_run)
                 m_out << *this;
 
             std::string in_key;
 
-            std::cout << m_ready_indicator;
+            m_out << m_ready_indicator;
 
             while (m_in >> in_key)
             {
@@ -129,23 +144,9 @@ namespace skipper
                 else
                     m_out << "Invalid command, press 'h' for help" << std::endl;
 
-                std::cout << m_ready_indicator;
+                m_out << m_ready_indicator;
             }
             return 0;
-        }
-
-        /// Set wether to print on program run
-        /// @param print_help whether to print the help text on program run
-        void set_print_help_on_run(bool print_help)
-        {
-            m_print_help = print_help;
-        }
-
-        /// Set the ready indicator
-        /// @param ready_indicator the ready indicator
-        void set_ready_indicator(const std::string& ready_indicator)
-        {
-            m_ready_indicator = ready_indicator;
         }
 
     private:
@@ -170,13 +171,13 @@ namespace skipper
     private:
 
         /// help text for the program
-        std::string m_description;
+        std::string m_description = "Program description";
 
         /// the input stream used
-        std::istream& m_in;
+        std::istream& m_in = std::cin;
 
         /// the output stream used
-        std::ostream& m_out;
+        std::ostream& m_out = std::cout;
 
         /// the parameters support by the program
         std::map<std::string, command_storage> m_commands;
@@ -184,7 +185,7 @@ namespace skipper
         /// the string that terminates the program
         const std::string m_exit_key = "q";
 
-        bool m_print_help = true;
+        bool m_print_help_on_run = true;
 
         std::string m_ready_indicator = "> ";
     };

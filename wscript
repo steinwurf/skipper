@@ -32,10 +32,14 @@ def resolve(ctx):
             major=3))
 
         ctx.add_dependency(resolve.ResolveVersion(
+            name='kw',
+            git_repository='github.com/steinwurf/kw.git',
+            major=2))
+
+        ctx.add_dependency(resolve.ResolveVersion(
             name='stub',
             git_repository='github.com/steinwurf/stub.git',
             major=4))
-
 
 
 def configure(conf):

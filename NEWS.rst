@@ -6,8 +6,11 @@ every change, see the Git log.
 
 Latest
 ------
+* Major: Changed constructor program(...) -> program()
 * Major: Changed run(bool print_help) -> run()
-* Minor: Added set_print_help_on_run() and set_ready_indicator()
+* Major: Added depedendcy on kw
+* Minor: Added optional arguments in, out, set_print_help_on_run,
+  ready_indicator
 
 1.2.0
 -----
