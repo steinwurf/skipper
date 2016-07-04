@@ -6,6 +6,10 @@ every change, see the Git log.
 
 Latest
 ------
+* TBD
+
+2.0.0
+-----
 * Major: Changed run(bool) -> run()
 * Minor: Validator defaults to Any input, if no validator is provided.
 * Minor: Added set_print_help(bool) to turn on/off help print on run.
