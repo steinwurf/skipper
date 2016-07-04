@@ -63,6 +63,10 @@ int main()
     // add a command that prints something useful
     p.add_command("p", "print something", print_function);
 
+    p.set_ready_indicator("# ");
+
+    p.set_print_help(true);
+
     // run the program
     return p.run();
 }
