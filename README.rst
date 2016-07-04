@@ -130,6 +130,6 @@ can be useful for testing.
 
     test_in.str("q\n");
 
-    p.run(false);
+    p.run();
 
     assert(test_out.str().compare("") == 0);
