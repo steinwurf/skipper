@@ -6,7 +6,10 @@ every change, see the Git log.
 
 Latest
 ------
+* Major: Changed run(bool) -> run()
 * Minor: Validator defaults to Any input, if no validator is provided.
+* Minor: Added set_print_help(bool) to turn on/off help print on run.
+* Minor: Added set_ready_indicator to provide custom ready indicator.
 * Minor: Allow the exit key to be set via set_exit_key.
 
 1.2.0
