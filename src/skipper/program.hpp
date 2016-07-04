@@ -121,7 +121,7 @@ namespace skipper
             std::cout << "> ";
             while (m_in >> in_key)
             {
-                if (in_key == "q")
+                if (in_key == m_exit_key)
                     return 0;
 
                 if (m_commands.count(in_key))
@@ -132,6 +132,13 @@ namespace skipper
                 std::cout << "> ";
             }
             return 0;
+        }
+
+        /// Set the quit / escape key
+        /// @param exit_key the key to exit the program
+        void set_exit_key(const std::string& exit_key)
+        {
+            m_exit_key = exit_key;
         }
 
     private:
@@ -168,6 +175,6 @@ namespace skipper
         std::map<std::string, command_storage> m_commands;
 
         /// the string that terminates the program
-        const std::string m_exit_key = "q";
+        std::string m_exit_key = "q";
     };
 }

@@ -63,6 +63,9 @@ int main()
     // add a command that prints something useful
     p.add_command("p", "print something", print_function);
 
+    // Change the quit/escape key to "e", dafaults to "q"
+    p.set_exit_key("e");
+
     // run the program
     return p.run();
 }

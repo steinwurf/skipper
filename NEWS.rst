@@ -7,6 +7,7 @@ every change, see the Git log.
 Latest
 ------
 * Minor: Validator defaults to Any input, if no validator is provided.
+* Minor: Allow the exit key to be set via set_exit_key.
 
 1.2.0
 -----
