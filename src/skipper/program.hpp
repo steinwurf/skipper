@@ -110,7 +110,6 @@ namespace skipper
         }
 
         /// run the program
-        /// @param print_help whether to print the help text on program run
         int run()
         {
             if (m_print_help)
@@ -135,14 +134,14 @@ namespace skipper
         }
 
         /// Set wether help should be printed on run
-        /// help_on print help at run
+        /// @param help_on print help at run
         void set_print_help(bool help_on)
         {
             m_print_help = help_on;
         }
 
         /// set the ready indicator, use "" for no indicator
-        /// @indicator the ready indicator
+        /// @param indicator the ready indicator
         void set_ready_indicator(const std::string& indicator)
         {
             m_ready_indicator = indicator;

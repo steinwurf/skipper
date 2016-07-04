@@ -63,8 +63,10 @@ int main()
     // add a command that prints something useful
     p.add_command("p", "print something", print_function);
 
+    // Set the ready inicator to be "# " the default is "> "
     p.set_ready_indicator("# ");
 
+    // Set the help to be printed on run, default is on.
     p.set_print_help(true);
 
     // run the program
