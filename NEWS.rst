@@ -11,6 +11,7 @@ Latest
 * Major: Added depedendcy on kw
 * Minor: Added optional arguments in, out, set_print_help_on_run,
   ready_indicator
+* Minor: Validator defaults to Any input, if no validator is provided.
 
 1.2.0
 -----

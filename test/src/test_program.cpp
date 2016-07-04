@@ -55,6 +55,24 @@ TEST(test_program, int_set_command)
     EXPECT_TRUE(m_function.expect_calls().with(42).with(0).with(7).to_bool());
 }
 
+TEST(test_program, string_any_command)
+{
+    std::istringstream test_in;
+    std::ostringstream test_out;
+    skipper::program p("dummy help text", test_in, test_out);
+
+    stub::call<void(std::string)> m_function;
+    std::function<void(std::string)> function =
+        [&](std::string value){m_function(value);};
+    p.add_command<std::string>("a", "help", function);
+
+    test_in.str("a\n hello\n a\n world\n");
+    p.run(false);
+    EXPECT_EQ(2U, m_function.calls());
+    EXPECT_TRUE(
+        m_function.expect_calls().with("hello").with("world").to_bool());
+}
+
 TEST(test_program, float_range_command)
 {
     std::istringstream test_in;
