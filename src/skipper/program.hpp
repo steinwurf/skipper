@@ -120,7 +120,7 @@ namespace skipper
             m_out << m_ready_indicator;
             while (m_in >> in_key)
             {
-                if (in_key == "q")
+                if (in_key == m_exit_key)
                     return 0;
 
                 if (m_commands.count(in_key))
@@ -145,6 +145,13 @@ namespace skipper
         void set_ready_indicator(const std::string& indicator)
         {
             m_ready_indicator = indicator;
+        }
+
+        /// Set the quit / escape key
+        /// @param exit_key the key to exit the program
+        void set_exit_key(const std::string& exit_key)
+        {
+            m_exit_key = exit_key;
         }
 
     private:
@@ -180,8 +187,6 @@ namespace skipper
         /// the parameters support by the program
         std::map<std::string, command_storage> m_commands;
 
-        /// the string that terminates the program
-        const std::string m_exit_key = "q";
 
         /// Print help on run
         bool m_print_help = true;
@@ -189,5 +194,7 @@ namespace skipper
         /// Ready indicator
         std::string m_ready_indicator = "> ";
 
+        /// the string that terminates the program
+        std::string m_exit_key = "q";
     };
 }

@@ -131,3 +131,21 @@ TEST(test_program, custom_ready_indicator)
     p.run();
     EXPECT_EQ("? ", test_out.str());
 }
+
+TEST(test_program, set_exit_key)
+{
+    std::istringstream test_in;
+    std::ostringstream test_out;
+    skipper::program p("dummy", test_in, test_out);
+
+    p.set_exit_key("e");
+
+    test_in.str("q\n e\n q\n");
+    p.run();
+
+    // after e\n the program should have terminated, so no second error message
+    // should appear
+    EXPECT_EQ("\ndummy\n\nThe following commands are accepted:\n"
+    "h print this help\ne exit the program\n\n> "
+    "Invalid command, press 'h' for help\n> ", test_out.str());
+}

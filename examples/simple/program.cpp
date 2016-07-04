@@ -69,6 +69,9 @@ int main()
     // Set the help to be printed on run, default is on.
     p.set_print_help(true);
 
+    // Change the quit/escape key to "e", dafaults to "q"
+    p.set_exit_key("e");
+
     // run the program
     return p.run();
 }
