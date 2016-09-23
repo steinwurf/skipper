@@ -9,34 +9,41 @@
 int main()
 {
     // dummy functions called by the program
-    auto function_str =
-        [](std::string s){std::cout << "called with: " << s << std::endl;};
+    auto function_str = [](std::string s)
+    {
+        std::cout << "called with: " << s << std::endl;
+    };
 
-    auto function_int =
-        [](int i){std::cout << "called with: " << i << std::endl;};
+    auto function_int = [](int i)
+    {
+        std::cout << "called with: " << i << std::endl;
+    };
 
-    auto function_float =
-        [](float f){std::cout << "called with: " << f << std::endl;};
+    auto function_float = [](float f)
+    {
+        std::cout << "called with: " << f << std::endl;
+    };
 
-    auto print_function =
-        [](){std::cout << "prints some useful value" << std::endl;};
+    auto print_function = []()
+    {
+        std::cout << "prints some useful value" << std::endl;
+    };
 
     using tuple_type = std::tuple<std::string, int>;
 
     auto function_str_int_tuple = [](tuple_type t)
     {
         (void)t;
-        std::cout << "called with: "
-                  << std::get<0>(t) << ", " << std::get<1>(t) << std::endl;
+        std::cout << "called with: " << std::get<0>(t) << ", "
+                  << std::get<1>(t) << std::endl;
     };
 
     auto tuple_convert = [](std::istream& in)
     {
-
         auto v1 = skipper::default_convert<
-            typename std::tuple_element<0, tuple_type>::type>(in);
+                  typename std::tuple_element<0, tuple_type>::type>(in);
         auto v2 = skipper::default_convert<
-            typename std::tuple_element<1, tuple_type>::type>(in);
+                  typename std::tuple_element<1, tuple_type>::type>(in);
 
         return std::make_tuple(v1, v2);
     };
@@ -57,8 +64,9 @@ int main()
 
     // add a command that takes any string followed by any int as input
     p.add_command<tuple_type>("d", "some help text for d",
-        function_str_int_tuple, skipper::any<tuple_type>(),
-        tuple_convert);
+                              function_str_int_tuple,
+                              skipper::any<tuple_type>(),
+                              tuple_convert);
 
     // add a command that prints something useful
     p.add_command("p", "print something", print_function);

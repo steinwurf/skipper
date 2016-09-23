@@ -28,7 +28,7 @@ namespace skipper
         /// @param os an output stream
         /// @param s a set
         /// @return friendly help stream
-        friend std::ostream& operator<<(std::ostream& os, const any &a)
+        friend std::ostream& operator<<(std::ostream& os, const any& a)
         {
             (void) a;
             return os << "of type " << typeid(Type).name() << " of any value";

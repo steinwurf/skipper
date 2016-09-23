@@ -16,8 +16,8 @@ namespace skipper
     template<typename Type>
     struct range
     {
-        range(Type lower, Type upper)
-            : m_lower(lower), m_upper(upper)
+        range(Type lower, Type upper) :
+            m_lower(lower), m_upper(upper)
         {
             assert(lower <= upper);
         }
@@ -29,10 +29,10 @@ namespace skipper
         }
 
         /// @copydoc any::operator<<
-        friend std::ostream& operator<<(std::ostream& os, const range &r)
+        friend std::ostream& operator<<(std::ostream& os, const range& r)
         {
             return os << "of type " << typeid(Type).name() << " in ["
-                      << r.m_lower << "," << r.m_upper << "]";
+                   << r.m_lower << "," << r.m_upper << "]";
         }
 
     private:

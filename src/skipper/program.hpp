@@ -22,7 +22,7 @@ namespace skipper
     const Type default_convert(std::istream& in)
     {
         Type value;
-        if(!(in >> value))
+        if (!(in >> value))
         {
             // reset the input stream error state and read all inputs
             in.clear();
@@ -53,10 +53,10 @@ namespace skipper
         /// @param out the output stream to use
         program(std::string description,
                 std::istream& in = std::cin,
-                std::ostream& out = std::cout)
-            : m_description(description), m_in(in), m_out(out)
+                std::ostream& out = std::cout) :
+            m_description(description), m_in(in), m_out(out)
         {
-            add_command("h", "print this help", [&](){m_out << *this;});
+            add_command("h", "print this help", [&]() {m_out << *this;});
         }
 
         /// add a command to the program
@@ -81,7 +81,7 @@ namespace skipper
                          const std::function<void(const Type)>& call,
                          const Predicate& validate = any<Type>(),
                          std::function<const Type(std::istream&)> convert =
-                            default_convert<Type>)
+                             default_convert<Type>)
         {
             assert(!m_commands.count(key) && "Duplicated command");
 
@@ -160,12 +160,12 @@ namespace skipper
         /// @param os an output stream
         /// @param s a set
         /// @return friendly help stream
-        friend std::ostream& operator<<(std::ostream& os, const program &p)
+        friend std::ostream& operator<<(std::ostream& os, const program& p)
         {
             os << std::endl << p.m_description << std::endl << std::endl
                << "The following commands are accepted:" << std::endl;
 
-            for(auto i = p.m_commands.begin(); i != p.m_commands.end(); i++)
+            for (auto i = p.m_commands.begin(); i != p.m_commands.end(); i++)
                 os << i->first << " " << std::get<1>(i->second) << std::endl;
 
             os << p.m_exit_key << " exit the program" << std::endl << std::endl;
