@@ -24,7 +24,7 @@ TEST(test_program, void_command)
     p.set_ready_indicator("");
 
     stub::call<void(void)> m_print_function;
-    auto print_function = [&](){m_print_function();};
+    auto print_function = [&]() {m_print_function();};
 
     p.add_command("p", "print something", print_function);
     test_in.str("p\n p\n p\n q\n");
@@ -42,7 +42,7 @@ TEST(test_program, int_set_command)
     p.set_ready_indicator("");
 
     stub::call<void(int)> m_function;
-    std::function<void(int)> function = [&](int value){m_function(value);};
+    std::function<void(int)> function = [&](int value) {m_function(value);};
     p.add_command<int>("a", "help", function, skipper::set<int>({0,7,42,1}));
 
     test_in.str("a\n 42\n a\n -10\n a\n 0\n a\n 7 a\n 11\n");
@@ -60,8 +60,10 @@ TEST(test_program, string_any_command)
     p.set_ready_indicator("");
 
     stub::call<void(std::string)> m_function;
-    std::function<void(std::string)> function =
-        [&](std::string value){m_function(value);};
+    std::function<void(std::string)> function = [&](std::string value)
+    {
+        m_function(value);
+    };
     p.add_command<std::string>("a", "help", function);
 
     test_in.str("a\n hello\n a\n world\n");
@@ -80,9 +82,9 @@ TEST(test_program, float_range_command)
     p.set_ready_indicator("");
 
     stub::call<void(float)> m_function;
-    std::function<void(float)> function = [&](float value){m_function(value);};
+    std::function<void(float)> function = [&](float value) {m_function(value);};
     p.add_command<float>("a", "help", function,
-        skipper::range<float>(-4.0F, 7.2F));
+                         skipper::range<float>(-4.0F, 7.2F));
 
     test_in.str("a\n 42\n a\n -1\n a\n 0\n a\n 7\n a\n 11\n");
     p.run();
@@ -99,7 +101,7 @@ TEST(test_program, trigger_errors)
     p.set_ready_indicator("");
 
     stub::call<void(int)> m_function;
-    std::function<void(int)> function = [&](int value){m_function(value);};
+    std::function<void(int)> function = [&](int value) {m_function(value);};
     p.add_command<int>("a", "help", function, skipper::range<int>(0, 10));
 
     test_in.str("wrong key\n a\n wrong input\n q\n");
@@ -146,6 +148,6 @@ TEST(test_program, set_exit_key)
     // after e\n the program should have terminated, so no second error message
     // should appear
     EXPECT_EQ("\ndummy\n\nThe following commands are accepted:\n"
-    "h print this help\ne exit the program\n\n> "
-    "Invalid command, press 'h' for help\n> ", test_out.str());
+              "h print this help\ne exit the program\n\n> "
+              "Invalid command, press 'h' for help\n> ", test_out.str());
 }
