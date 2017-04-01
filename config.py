@@ -9,7 +9,7 @@ try:
 except NameError:
     pass
 
-project_name = 'hex'
+project_name = 'skipper'
 project_dependencies = \
     [
         'waf-tools',
