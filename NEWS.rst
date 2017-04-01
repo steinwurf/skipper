@@ -6,7 +6,10 @@ every change, see the Git log.
 
 Latest
 ------
-* TBD
+* tbd
+* Major: Upgrade to waf-tools 4
+* Minor: Upgrade to gtest 4
+* Minor: Upgrade to stub 6
 
 2.0.0
 -----

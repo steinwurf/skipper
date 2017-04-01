@@ -6,7 +6,7 @@
 #include <skipper/program.hpp>
 
 #include <gtest/gtest.h>
-#include <stub/call.hpp>
+#include <stub/function.hpp>
 
 #include <sstream>
 
@@ -23,7 +23,7 @@ TEST(test_program, void_command)
     p.set_print_help(false);
     p.set_ready_indicator("");
 
-    stub::call<void(void)> m_print_function;
+    stub::function<void(void)> m_print_function;
     auto print_function = [&]() {m_print_function();};
 
     p.add_command("p", "print something", print_function);
@@ -41,7 +41,7 @@ TEST(test_program, int_set_command)
     p.set_print_help(false);
     p.set_ready_indicator("");
 
-    stub::call<void(int)> m_function;
+    stub::function<void(int)> m_function;
     std::function<void(int)> function = [&](int value) {m_function(value);};
     p.add_command<int>("a", "help", function, skipper::set<int>({0,7,42,1}));
 
@@ -59,7 +59,7 @@ TEST(test_program, string_any_command)
     p.set_print_help(false);
     p.set_ready_indicator("");
 
-    stub::call<void(std::string)> m_function;
+    stub::function<void(std::string)> m_function;
     std::function<void(std::string)> function = [&](std::string value)
     {
         m_function(value);
@@ -81,7 +81,7 @@ TEST(test_program, float_range_command)
     p.set_print_help(false);
     p.set_ready_indicator("");
 
-    stub::call<void(float)> m_function;
+    stub::function<void(float)> m_function;
     std::function<void(float)> function = [&](float value) {m_function(value);};
     p.add_command<float>("a", "help", function,
                          skipper::range<float>(-4.0F, 7.2F));
@@ -100,7 +100,7 @@ TEST(test_program, trigger_errors)
     p.set_print_help(false);
     p.set_ready_indicator("");
 
-    stub::call<void(int)> m_function;
+    stub::function<void(int)> m_function;
     std::function<void(int)> function = [&](int value) {m_function(value);};
     p.add_command<int>("a", "help", function, skipper::range<int>(0, 10));
 
